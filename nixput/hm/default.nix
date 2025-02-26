@@ -157,7 +157,7 @@ in
         (lib.filter (value: value.bindings != { }))
       ];
 
-    programs.vscode.keybindings = lib.pipe (bindingsForEditor "vscode") [
+    programs.vscode.profiles.default.keybindings = lib.pipe (bindingsForEditor "vscode") [
       builtins.attrValues
       (builtins.map (
         keybind:
