@@ -64,7 +64,8 @@ let
     builtins.listToAttrs
   ];
 
-  actions = lib.pipe (builtins.fromJSON (builtins.readFile ./bindings.json)).bindings [
+  bindings = builtins.fomJSON (builtins.readFile ../bindings.json);
+  actions = lib.pipe bindings.bindings [
     (builtins.map (action: lib.nameValuePair action.name action))
     builtins.listToAttrs
   ];
@@ -141,10 +142,9 @@ in
       let
         bindingToAttrName = bind: if lib.isList bind then lib.concatStringsSep "-" bind else bind;
 
-        bindings = builtins.fromJSON (builtins.readFile ./bindings.json);
         # get a list of the contexts by iterating each binding, getting the context and then removing duplicates
         editorContexts = builtins.listToAttrs (
-          builtins.unique (builtins.map (binding: binding.context) bindings)
+          lib.unique (builtins.map (binding: binding.context) bindings)
         );
       in
       lib.pipe editorContexts [
