@@ -4,7 +4,7 @@
   ...
 }:
 let
-  cfg = config.custom.input;
+  cfg = config.nixput;
   keys = lib.mine.keys.alphanumericKeys;
 
   keyType =
@@ -118,8 +118,8 @@ let
     ];
 in
 {
-  options.custom.input = {
-    enable = lib.mkEnableOption "Input configuration";
+  options.nixput = {
+    enable = lib.mkEnableOption "Nixput keybinds configuration";
 
     # For user to use during configuration of keybinds
     keymap = lib.mkOption {
