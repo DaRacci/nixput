@@ -79,6 +79,7 @@
 
               git-hooks = {
                 hooks = {
+                  nil.enable = true;
                   actionlint.enable = true;
                   deadnix.enable = true;
                   statix.enable = true;

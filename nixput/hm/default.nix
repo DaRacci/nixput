@@ -64,7 +64,7 @@ let
     builtins.listToAttrs
   ];
 
-  bindings = builtins.fomJSON (builtins.readFile ../bindings.json);
+  bindings = builtins.fromJSON (builtins.readFile ../bindings.json);
   actions = lib.pipe bindings.bindings [
     (builtins.map (action: lib.nameValuePair action.name action))
     builtins.listToAttrs
