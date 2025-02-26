@@ -142,18 +142,14 @@ in
       let
         bindingToAttrName = bind: if lib.isList bind then lib.concatStringsSep "-" bind else bind;
 
-        # get a list of the contexts by iterating each binding, getting the context and then removing duplicates
-        editorContexts = builtins.listToAttrs (
-          lib.unique (builtins.map (binding: binding.context) bindings)
-        );
+        editorContexts = lib.unique (builtins.map (binding: binding.zed-editor.context) bindings.bindings);
       in
       lib.pipe editorContexts [
-        builtins.attrValues
         (builtins.map (context: {
-          context = context.zed-editor;
+          inherit context;
           bindings = lib.pipe (bindingsForEditor "zed-editor") [
             builtins.attrValues
-            (builtins.filter (keybind: keybind.editorContext == context.zed-editor))
+            (builtins.filter (keybind: keybind.context == context))
             (builtins.map (keybind: lib.nameValuePair (bindingToAttrName keybind.bind) keybind.action))
             builtins.listToAttrs
           ];
