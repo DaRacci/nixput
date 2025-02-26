@@ -1,0 +1,32 @@
+name: Update inputs
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * 0
+
+jobs:
+  update-flake-lock:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@main
+        with:
+          commit-msg: "chore(deps): update flake.lock"
+          pr-title: "Update flake.lock"
+          pr-labels: |
+            dependencies
+            merge-queue
+            automated
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+          sign-commits: true
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-fingerprint: ${{ secrets.GPG_FINGERPRINT }}
+          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}

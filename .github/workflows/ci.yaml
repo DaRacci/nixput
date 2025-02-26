@@ -1,0 +1,31 @@
+name: CI
+
+on: [workflow_dispatch, push]
+
+jobs:
+  flake-checker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/flake-checker-action@main
+
+  flake-checks:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - system: ubuntu-latest # x86_64-linux
+          - system: ubuntu-24.04-arm # aarch64-linux
+          - system: macos-13 # x86_64-darwin
+          - system: macos-latest # x86_64-darwin
+    runs-on: ${{ matrix.system }}
+    name: Run Flake Check on ${{ matrix.system }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Run Flake Check
+        run: nix flake check --no-pure-eval --accept-flake-config --allow-import-from-derivation
