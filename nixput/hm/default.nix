@@ -167,7 +167,7 @@ in
         {
           key = bindingToAttrName keybind.bind;
           command = keybind.action;
-          when = keybind.editorContext;
+          when = keybind.context;
         }
       ))
     ];
