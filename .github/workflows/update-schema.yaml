@@ -1,3 +1,5 @@
+# TODO - Validate the existing schema file after schema update to ensure it is valid
+# If not valid we should turn this into a pull request and let the user fix it
 name: Update schema
 
 on:
@@ -19,7 +21,7 @@ jobs:
           version: 0.101.0
 
       - name: Update bindings
-        run: nu scripts/update-bindings.nu
+        run: nu scripts/update-bindings.nu resources/bindings.schema.json
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
