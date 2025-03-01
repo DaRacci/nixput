@@ -49,14 +49,12 @@ def main [
     exit 1
   }
 
-  if !($schema_path | path exists) {
+  if not ($schema_path | path exists) {
     print "Schema file does not exist: $schema_path"
     exit 1
   }
 
-  let directory = $env.FILE_PWD
-  let schema_file = $"($directory)/bindings.schema.json"
-  let schema = open $schema_file
+  let schema = open $schema_path
 
   let zed_editor = parse_zed-editor
   let updated_schema = $schema
@@ -68,5 +66,5 @@ def main [
   let updated_schema = $updated_schema
     | update definitions.micro-action.enum $micro.keybinds
 
-  $updated_schema | save $schema_file -f;
+  $updated_schema | save $schema_path -f;
 }
