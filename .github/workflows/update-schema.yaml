@@ -10,6 +10,8 @@ on:
 jobs:
   update-bindings:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -23,7 +25,21 @@ jobs:
       - name: Update bindings
         run: nu scripts/update-bindings.nu resources/bindings.schema.json
 
+      - name: Import GPG key
+        id: import-gpg
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          fingerprint: ${{ secrets.GPG_FINGERPRINT }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           commit_message: "chore(inputs): update bindings"
+          commit_author: "${{ steps.import-gpg.outputs.name }} <${{ steps.import-gpg.outputs.email }}>"
+          commit_user_name: ${{ steps.import-gpg.outputs.name }}
+          commit_user_email: ${{ steps.import-gpg.outputs.email }}
