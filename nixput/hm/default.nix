@@ -5,7 +5,7 @@
 }:
 let
   cfg = config.nixput;
-  keys = lib.mine.keys.alphanumericKeys;
+  keys = lib.keys.alphanumericKeys;
 
   keyType =
     with lib.types;
@@ -47,7 +47,7 @@ let
       key:
       lib.nameValuePair (lib.toUpper key) {
         name = key;
-        char = lib.mine.keys.getCharFromName key;
+        char = lib.keys.getCharFromName key;
         vscode = key;
         zed-editor = key;
         # Micro is lowercase unless its a named key like "Enter" then its first letter capitalized
@@ -118,8 +118,36 @@ let
     ];
 in
 {
+  imports = [
+    ./micro.nix
+    ./vscode.nix
+    ./zed-editor.nix
+  ];
+
   options.nixput = {
     enable = lib.mkEnableOption "Nixput keybinds configuration";
+
+    targets = lib.pipe (builtins.readDir ./.) [
+      lib.attrNames
+      (lib.filter (name: lib.hasSuffix ".nix" name))
+      (lib.filter (name: name != "default.nix"))
+      (lib.map (name: builtins.substring 0 ((builtins.stringLength name) - 4) name))
+      (lib.map (
+        name:
+        lib.nameValuePair name {
+          enable = lib.mkEnableOption "${name} keybinds configuration" // {
+            default = config.programs.${name}.enable;
+          };
+
+          bindings = lib.mkOption {
+            type = lib.types.attrs;
+            default = bindingsForEditor name;
+            readOnly = true;
+          };
+        }
+      ))
+      builtins.listToAttrs
+    ];
 
     # For user to use during configuration of keybinds
     keymap = lib.mkOption {
@@ -138,50 +166,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.zed-editor.userKeymaps =
-      let
-        bindingToAttrName = bind: if lib.isList bind then lib.concatStringsSep "-" bind else bind;
 
-        editorContexts = lib.unique (builtins.map (binding: binding.zed-editor.context) bindings.bindings);
-      in
-      lib.pipe editorContexts [
-        (builtins.map (context: {
-          inherit context;
-          bindings = lib.pipe (bindingsForEditor "zed-editor") [
-            builtins.attrValues
-            (builtins.filter (keybind: keybind.context == context))
-            (builtins.map (keybind: lib.nameValuePair (bindingToAttrName keybind.bind) keybind.action))
-            builtins.listToAttrs
-          ];
-        }))
-        (lib.filter (value: value.bindings != { }))
-      ];
-
-    programs.vscode.profiles.default.keybindings = lib.pipe (bindingsForEditor "vscode") [
-      builtins.attrValues
-      (builtins.map (
-        keybind:
-        let
-          bindingToAttrName = bind: if lib.isList bind then lib.concatStringsSep "+" bind else bind;
-        in
-        {
-          key = bindingToAttrName keybind.bind;
-          command = keybind.action;
-          when = keybind.context;
-        }
-      ))
-    ];
-
-    xdg.configFile."micro/bindings.json".text =
-      let
-        bindingToAttrName = bind: if lib.isList bind then lib.concatStringsSep "-" bind else bind;
-      in
-      lib.generators.toJSON { } (
-        lib.pipe (bindingsForEditor "micro") [
-          builtins.attrValues
-          (builtins.map (keybind: lib.nameValuePair (bindingToAttrName keybind.bind) keybind.action))
-          builtins.listToAttrs
-        ]
-      );
   };
 }

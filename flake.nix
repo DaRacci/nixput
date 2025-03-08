@@ -154,6 +154,9 @@
                     NewLineAbove = "Ctrl+Shift+Enter";
                     NewLineBelow = "Ctrl+Enter";
                     SelectLine = "Ctrl+L";
+                    GotoLine = "Alt+G";
+                    MoveLineUp = "Ctrl+Alt+Up";
+                    MoveLineDown = "Ctrl+Alt+Down";
                   };
                 };
               }
