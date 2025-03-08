@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -i nu -p gojq curl
+#! nix-shell -i nu -p
 
 # Zed-Editor Keymap https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json
 # Micro Keymap https://github.com/zyedidia/micro/blob/master/runtime/help/keybindings.md
