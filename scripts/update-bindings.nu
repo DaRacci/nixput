@@ -9,8 +9,9 @@
 const SCHEMA_PATH = "./resources/schemas/bindings.schema.json";
 
 def parse_zed-editor [] {
-  const URL = "https://raw.githubusercontent.com/zed-industries/zed/main/assets/keymaps/default-linux.json"
-  let json = http get $URL
+  let version = nix eval --raw nixpkgs#zed-editor.version
+  let url = $"https://raw.githubusercontent.com/zed-industries/zed/refs/tags/v($version)/assets/keymaps/default-linux.json";
+  let json = http get $url
   let contexts = $json | get -i context | filter {|c| $c != null}
   let actions = $json | get bindings | each {|b| $b | values } | flatten
 
@@ -23,8 +24,9 @@ def parse_zed-editor [] {
 }
 
 def parse_micro [] {
-  const URL = "https://raw.githubusercontent.com/zyedidia/micro/refs/heads/master/runtime/help/keybindings.md";
-  let raw_text = http get $URL
+  let version = nix eval --raw nixpkgs#micro.version
+  let url = $"https://raw.githubusercontent.com/zyedidia/micro/refs/tags/v($version)/runtime/help/keybindings.md";
+  let raw_text = http get $url
   let actions = $raw_text | lines
     | skip until {|line| $line == "Full list of possible actions:" }
     | skip 1
