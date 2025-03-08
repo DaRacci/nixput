@@ -23,25 +23,41 @@
       url = "github:cachix/devenv";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    home-manager = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager";
+    };
   };
 
   outputs =
-    inputs@{ flake-parts, ... }:
+    inputs@{
+      self,
+      flake-parts,
+      home-manager,
+      nixpkgs,
+      devenv,
+      treefmt,
+      ...
+    }:
+    let
+      lib = inputs.nixpkgs.lib.extend (
+        prev: _:
+        import ./nixput/lib.nix {
+          inherit inputs;
+          lib = prev;
+        }
+      );
+    in
     flake-parts.lib.mkFlake
       {
         inherit inputs;
-        specialArgs.lib = inputs.nixpkgs.lib.extend (
-          prev: _:
-          import ./nixput/lib.nix {
-            inherit inputs;
-            lib = prev;
-          }
-        );
+        specialArgs.lib = lib;
       }
-      {
+      rec {
         imports = [
-          inputs.devenv.flakeModule
-          inputs.treefmt.flakeModule
+          devenv.flakeModule
+          treefmt.flakeModule
+          home-manager.flakeModules.home-manager
         ];
 
         systems = [
@@ -87,10 +103,62 @@
                 };
               };
             };
+
+            checks = {
+              buildHomeManagerConfiguration = flake.homeConfigurations.test.activationPackage;
+            };
           };
 
-        flake = {
+        flake = rec {
           homeManagerModules.nixput = import ./nixput/hm;
+
+          homeConfigurations.test = home-manager.lib.homeManagerConfiguration rec {
+            inherit lib;
+            pkgs = import nixpkgs { system = builtins.currentSystem; };
+
+            extraSpecialArgs = {
+              flake = self;
+              inherit (self) inputs outputs;
+            };
+
+            modules = [
+              {
+                imports = [
+                  homeManagerModules.nixput
+                ];
+
+                home = {
+                  username = "test";
+                  homeDirectory = "/home/test";
+                  stateVersion = "25.05";
+                };
+
+                programs = {
+                  zed-editor.enable = true;
+                  micro.enable = true;
+                  vscode = {
+                    enable = true;
+                    package = pkgs.vscodium;
+                  };
+                };
+
+                nixput = {
+                  enable = true;
+                  targets = {
+                    zed-editor.enable = true;
+                    vscode.enable = true;
+                    micro.enable = true;
+                  };
+                  keybinds = {
+                    NewLine = "Enter";
+                    NewLineAbove = "Ctrl+Shift+Enter";
+                    NewLineBelow = "Ctrl+Enter";
+                    SelectLine = "Ctrl+L";
+                  };
+                };
+              }
+            ];
+          };
         };
       };
 }
