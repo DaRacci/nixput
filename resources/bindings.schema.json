@@ -16,13 +16,13 @@
             "assistant2::FocusLeft",
             "assistant2::FocusRight",
             "assistant2::FocusUp",
+            "assistant2::NewPromptEditor",
             "assistant2::NewThread",
             "assistant2::OpenHistory",
             "assistant2::RemoveAllContext",
             "assistant2::RemoveFocusedContext",
             "assistant2::RemoveSelectedThread",
             "assistant2::ToggleContextPicker",
-            "assistant2::ToggleModelSelector",
             "assistant::Assist",
             "assistant::ConfirmCommand",
             "assistant::CopyCode",
@@ -59,6 +59,7 @@
             "editor::ApplyAllDiffHunks",
             "editor::ApplyDiffHunk",
             "editor::Backspace",
+            "editor::Backtab",
             "editor::Cancel",
             "editor::ComposeCompletion",
             "editor::ConfirmCodeAction",
@@ -67,7 +68,7 @@
             "editor::ContextMenuFirst",
             "editor::ContextMenuLast",
             "editor::ContextMenuNext",
-            "editor::ContextMenuPrev",
+            "editor::ContextMenuPrevious",
             "editor::Copy",
             "editor::CopyPath",
             "editor::Cut",
@@ -93,8 +94,8 @@
             "editor::GoToDiagnostic",
             "editor::GoToHunk",
             "editor::GoToImplementation",
-            "editor::GoToPrevDiagnostic",
-            "editor::GoToPrevHunk",
+            "editor::GoToPreviousDiagnostic",
+            "editor::GoToPreviousHunk",
             "editor::GoToTypeDefinition",
             "editor::GoToTypeDefinitionSplit",
             "editor::Hover",
@@ -158,7 +159,6 @@
             "editor::ShowEditPrediction",
             "editor::ShowSignatureHelp",
             "editor::Tab",
-            "editor::TabPrev",
             "editor::ToggleCodeActions",
             "editor::ToggleEditPrediction",
             "editor::ToggleFold",
@@ -172,9 +172,10 @@
             "editor::UnfoldAll",
             "editor::UnfoldLines",
             "editor::UnfoldRecursive",
-            "file_finder::SelectPrev",
+            "file_finder::SelectPrevious",
             "file_finder::Toggle",
             "git::Commit",
+            "git::GenerateCommitMessage",
             "git::Restore",
             "git::StageAll",
             "git::StageAndNext",
@@ -196,7 +197,7 @@
             "menu::SelectFirst",
             "menu::SelectLast",
             "menu::SelectNext",
-            "menu::SelectPrev",
+            "menu::SelectPrevious",
             "outline::Toggle",
             "outline_panel::CollapseSelectedEntry",
             "outline_panel::CopyPath",
@@ -206,7 +207,7 @@
             "outline_panel::ToggleFocus",
             "pane::ActivateLastItem",
             "pane::ActivateNextItem",
-            "pane::ActivatePrevItem",
+            "pane::ActivatePreviousItem",
             "pane::CloseActiveItem",
             "pane::DeploySearch",
             "pane::GoBack",
@@ -252,7 +253,7 @@
             "search::ReplaceNext",
             "search::SelectAllMatches",
             "search::SelectNextMatch",
-            "search::SelectPrevMatch",
+            "search::SelectPreviousMatch",
             "search::ToggleCaseSensitive",
             "search::ToggleRegex",
             "search::ToggleReplace",
@@ -351,7 +352,10 @@
               "description": "Arguments to the action"
             }
           },
-          "required": ["action", "args"]
+          "required": [
+            "action",
+            "args"
+          ]
         }
       ],
       "description": "The action to be performed in the zed editor (https://zed.dev/docs/key-bindings#actions)"
@@ -362,8 +366,10 @@
         "!Terminal",
         "(CollabPanel && editing) > Editor",
         "ApplicationMenu",
+        "AskPass > Editor",
         "AssistantPanel",
         "AssistantPanel2",
+        "AssistantPanel2 && prompt_editor",
         "BufferSearchBar",
         "BufferSearchBar && !in_replace > Editor",
         "BufferSearchBar && in_replace > Editor",
@@ -372,6 +378,7 @@
         "CollabPanel && not_editing",
         "ContextEditor > Editor",
         "ContextStrip",
+        "EditMessageEditor > Editor",
         "Editor",
         "Editor && !edit_prediction",
         "Editor && (showing_code_actions || showing_completions)",
@@ -386,6 +393,7 @@
         "Editor && showing_completions",
         "FileFinder || (FileFinder > Picker > Editor) || (FileFinder > Picker > menu)",
         "GitCommit > Editor",
+        "GitDiff > Editor",
         "GitPanel && ChangesList",
         "GitPanel > Editor",
         "Markdown",
@@ -413,10 +421,13 @@
       ],
       "description": "The context in which the action is performed in the zed editor (https://zed.dev/docs/key-bindings#contexts)"
     },
-
     "micro-context": {
       "type": "string",
-      "enum": ["buffer", "command", "terminal"]
+      "enum": [
+        "buffer",
+        "command",
+        "terminal"
+      ]
     },
     "micro-action": {
       "type": "string",
@@ -577,7 +588,9 @@
                 ]
               }
             },
-            "required": ["action"]
+            "required": [
+              "action"
+            ]
           },
           "vscode": {
             "type": "object",
@@ -590,13 +603,21 @@
               },
               "additionalProperties": false
             },
-            "required": ["context", "action"]
+            "required": [
+              "context",
+              "action"
+            ]
           },
           "micro": {
-            "type": ["null", "object"],
+            "type": [
+              "null",
+              "object"
+            ],
             "properties": {
               "context": {
-                "type": ["string"],
+                "type": [
+                  "string"
+                ],
                 "$ref": "#/definitions/micro-context"
               },
               "action": {
@@ -605,14 +626,23 @@
               },
               "additionalProperties": false
             },
-            "required": ["action"]
+            "required": [
+              "action"
+            ]
           }
         },
-        "required": ["name", "zed-editor", "vscode", "micro"],
+        "required": [
+          "name",
+          "zed-editor",
+          "vscode",
+          "micro"
+        ],
         "additionalProperties": false
       }
     }
   },
-  "required": ["bindings"],
+  "required": [
+    "bindings"
+  ],
   "additionalProperties": true
 }
