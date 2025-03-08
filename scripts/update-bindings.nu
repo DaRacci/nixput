@@ -6,6 +6,8 @@
 # VSCode Keymap https://code.visualstudio.com/docs/getstarted/keybindings
 # Helix Keymap https://docs.helix-editor.com/keymap.html
 
+const SCHEMA_PATH = "./resources/schemas/bindings.schema.json";
+
 def parse_zed-editor [] {
   const URL = "https://raw.githubusercontent.com/zed-industries/zed/main/assets/keymaps/default-linux.json"
   let json = http get $URL
@@ -41,30 +43,23 @@ def parse_micro [] {
   }
 }
 
-def main [
-  schema_path: string
-] {
-  if $schema_path == "" {
-    print "Usage: update-bindings <schema-path>"
+def main [] {
+  if not ($SCHEMA_PATH | path exists) {
+    print $"Schema file does not exist: ($SCHEMA_PATH)"
     exit 1
   }
 
-  if not ($schema_path | path exists) {
-    print "Schema file does not exist: $schema_path"
-    exit 1
-  }
-
-  let schema = open $schema_path
+  let schema = open $SCHEMA_PATH
 
   let zed_editor = parse_zed-editor
   let updated_schema = $schema
     | update definitions.zed-editor-action.oneOf.0.enum $zed_editor.actionsNoArgs
     | update definitions.zed-editor-action.oneOf.1.properties.action.enum $zed_editor.actionsWithArgs
-    | update definitions.zed-editor-context.enum $zed_editor.contexts
+    | update definitions.zed-editor-context.examples $zed_editor.contexts
 
   let micro = parse_micro
   let updated_schema = $updated_schema
     | update definitions.micro-action.enum $micro.keybinds
 
-  $updated_schema | save $schema_path -f;
+  $updated_schema | save $SCHEMA_PATH -f;
 }
