@@ -1,0 +1,65 @@
+# TODO - Validate the existing schema file after schema update to ensure it is valid
+# If not valid we should turn this into a pull request and let the user fix it
+name: Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 */6 * * *
+
+jobs:
+  update-resources:
+    name: Update Resources
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+
+      - name: Setup Nushell
+        uses: hustcer/setup-nu@v3
+        with:
+          version: 0.101.0
+
+      - name: Update resources
+        run: nu scripts/update-resources.nu
+
+      - name: Commit Changes
+        uses: ./.github/actions/signed-commit
+        with:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          GPG_FINGERPRINT: ${{ secrets.GPG_FINGERPRINT }}
+          commit_message: "chore(resources): update resources"
+
+  update-bindings:
+    name: Update Bindings
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+
+      - name: Setup Nushell
+        uses: hustcer/setup-nu@v3
+        with:
+          version: 0.101.0
+
+      - name: Update bindings
+        run: nu scripts/update-bindings.nu
+
+      - name: Commit Changes
+        uses: ./.github/actions/signed-commit
+        with:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          GPG_FINGERPRINT: ${{ secrets.GPG_FINGERPRINT }}
+          commit_message: "chore(bindings): update bindings"

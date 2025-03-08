@@ -1,0 +1,15 @@
+{
+  "$schema": "schemas/resources.schema.json",
+  "resources": [
+    {
+      "source": "https://raw.githubusercontent.com/zed-industries/zed/refs/tags/v{{version}}/assets/keymaps/default-linux.json",
+      "destination": "resources/zed-editor/default-linux.json",
+      "variables": [
+        {
+          "name": "{{version}}",
+          "expression": "nix eval --raw nixpkgs#zed-editor.version"
+        }
+      ]
+    }
+  ]
+}

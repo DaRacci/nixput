@@ -1,0 +1,37 @@
+name: "Setup GPG Signing and Commit Changes"
+description: "Setup GPG Signing and Commit Changes"
+
+inputs:
+  GPG_PRIVATE_KEY:
+    description: "GPG Private Key"
+    required: true
+  GPG_PASSPHRASE:
+    description: "GPG Passphrase"
+    required: true
+  GPG_FINGERPRINT:
+    description: "GPG Fingerprint"
+    required: true
+  commit_message:
+    description: "Commit message"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Import GPG key
+      id: import-gpg
+      uses: crazy-max/ghaction-import-gpg@v6
+      with:
+        gpg_private_key: ${{ inputs.GPG_PRIVATE_KEY }}
+        passphrase: ${{ inputs.GPG_PASSPHRASE }}
+        fingerprint: ${{ inputs.GPG_FINGERPRINT }}
+        git_user_signingkey: true
+        git_commit_gpgsign: true
+
+    - name: Commit changes
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: ${{ inputs.commit_message }}
+        commit_author: "${{ steps.import-gpg.outputs.name }} <${{ steps.import-gpg.outputs.email }}>"
+        commit_user_name: ${{ steps.import-gpg.outputs.name }}
+        commit_user_email: ${{ steps.import-gpg.outputs.email }}

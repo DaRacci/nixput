@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "External Resources",
+  "description": "A schema for defining auto updated external resources",
+  "type": "object",
+  "properties": {
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "The source of the resource, this can be anything that is available for nushells http get command",
+            "examples": [
+              "https://raw.githubusercontent.com/nushell/nushell/main/README.md"
+            ]
+          },
+          "destination": {
+            "type": "string",
+            "description": "The destination of the resource relative to the root of this repository.",
+            "examples": ["resources/output.json"]
+          },
+          "variables": {
+            "type": "array",
+            "description": "Variables to be replaced inside the source.",
+            "items": {
+              "type": "object",
+              "description": "Variables to be replaced inside the source.",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "The variable to be replaced",
+                  "examples": ["{{variable}}"]
+                },
+                "expression": {
+                  "type": "string",
+                  "description": "The nu expression to evaluate and replace the variable",
+                  "examples": ["nix eval --raw nixpkgs#zed-editor.version"]
+                }
+              },
+              "required": ["name", "expression"]
+            }
+          }
+        },
+        "required": ["source", "destination"]
+      }
+    }
+  }
+}
