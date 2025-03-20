@@ -7,13 +7,13 @@ on:
   schedule:
     - cron: 0 */6 * * *
 
+permissions:
+  contents: write
+
 jobs:
   update-resources:
     name: Update Resources
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -42,9 +42,7 @@ jobs:
   update-bindings:
     name: Update Bindings
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
+    needs: update-resources # auto commit doesn't pull the changes from the previous step
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
