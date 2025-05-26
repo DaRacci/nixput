@@ -261,7 +261,6 @@
     "context": "ContextEditor > Editor",
     "bindings": {
       "ctrl-enter": "assistant::Assist",
-      "ctrl-shift-enter": "assistant::Edit",
       "ctrl-s": "workspace::Save",
       "save": "workspace::Save",
       "ctrl->": "assistant::QuoteSelection",
@@ -1186,6 +1185,10 @@
         "terminal::SendText",
         "\u001b."
       ],
+      "ctrl-delete": [
+        "terminal::SendText",
+        "\u001bd"
+      ],
       "ctrl-b": [
         "terminal::SendKeystroke",
         "ctrl-b"
@@ -1203,6 +1206,10 @@
         "ctrl-o"
       ],
       "ctrl-w": [
+        "terminal::SendKeystroke",
+        "ctrl-w"
+      ],
+      "ctrl-backspace": [
         "terminal::SendKeystroke",
         "ctrl-w"
       ],
@@ -1241,7 +1248,10 @@
       "shift-down": "terminal::ScrollLineDown",
       "shift-home": "terminal::ScrollToTop",
       "shift-end": "terminal::ScrollToBottom",
-      "ctrl-shift-space": "terminal::ToggleViMode"
+      "ctrl-shift-space": "terminal::ToggleViMode",
+      "ctrl-shift-r": "terminal::RerunTask",
+      "ctrl-alt-r": "terminal::RerunTask",
+      "alt-t": "terminal::RerunTask"
     }
   },
   {
@@ -1263,6 +1273,13 @@
     "use_key_equivalents": true,
     "bindings": {
       "ctrl-r": "diagnostics::ToggleDiagnosticsRefresh"
+    }
+  },
+  {
+    "context": "DebugConsole > Editor",
+    "use_key_equivalents": true,
+    "bindings": {
+      "enter": "menu::Confirm"
     }
   }
 ]
