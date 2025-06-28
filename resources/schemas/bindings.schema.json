@@ -218,6 +218,7 @@
             "git::Fetch",
             "git::ForcePush",
             "git::GenerateCommitMessage",
+            "git::OpenModifiedFiles",
             "git::Pull",
             "git::Push",
             "git::Restore",
