@@ -852,7 +852,9 @@
           "reveal_target": "center"
         }
       ],
-      "f5": "debugger::Rerun"
+      "f5": "debugger::Rerun",
+      "ctrl-f4": "workspace::CloseActiveDock",
+      "ctrl-w": "workspace::CloseActiveDock"
     }
   },
   {
@@ -946,6 +948,13 @@
       "down": "editor::ContextMenuNext",
       "pageup": "editor::ContextMenuFirst",
       "pagedown": "editor::ContextMenuLast"
+    }
+  },
+  {
+    "context": "Editor && showing_signature_help && !showing_completions",
+    "bindings": {
+      "up": "editor::SignatureHelpPrevious",
+      "down": "editor::SignatureHelpNext"
     }
   },
   {
