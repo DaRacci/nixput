@@ -320,18 +320,29 @@
     }
   },
   {
-    "context": "AgentPanel && acp_thread",
+    "context": "AgentPanel && external_agent_thread",
     "use_key_equivalents": true,
     "bindings": {
-      "ctrl-n": "agent::NewAcpThread",
+      "ctrl-n": "agent::NewExternalAgentThread",
       "ctrl-alt-t": "agent::NewThread"
     }
   },
   {
-    "context": "MessageEditor > Editor",
+    "context": "MessageEditor && !Picker > Editor && !use_modifier_to_send",
     "bindings": {
       "enter": "agent::Chat",
       "ctrl-enter": "agent::ChatWithFollow",
+      "ctrl-i": "agent::ToggleProfileSelector",
+      "shift-ctrl-r": "agent::OpenAgentDiff",
+      "ctrl-shift-y": "agent::KeepAll",
+      "ctrl-shift-n": "agent::RejectAll"
+    }
+  },
+  {
+    "context": "MessageEditor && !Picker > Editor && use_modifier_to_send",
+    "bindings": {
+      "ctrl-enter": "agent::Chat",
+      "enter": "editor::Newline",
       "ctrl-i": "agent::ToggleProfileSelector",
       "shift-ctrl-r": "agent::OpenAgentDiff",
       "ctrl-shift-y": "agent::KeepAll",
@@ -508,7 +519,7 @@
         }
       ],
       "alt-ctrl-t": [
-        "pane::CloseInactiveItems",
+        "pane::CloseOtherItems",
         {
           "close_pinned": false
         }
@@ -609,14 +620,13 @@
         }
       ],
       "ctrl-k ctrl-i": "editor::Hover",
+      "ctrl-k ctrl-b": "editor::BlameHover",
       "ctrl-/": [
         "editor::ToggleComments",
         {
           "advance_downwards": false
         }
       ],
-      "ctrl-u": "editor::UndoSelection",
-      "ctrl-shift-u": "editor::RedoSelection",
       "f8": [
         "editor::GoToDiagnostic",
         {
@@ -914,6 +924,8 @@
   {
     "context": "Editor",
     "bindings": {
+      "ctrl-u": "editor::UndoSelection",
+      "ctrl-shift-u": "editor::RedoSelection",
       "ctrl-shift-j": "editor::JoinLines",
       "ctrl-alt-backspace": "editor::DeleteToPreviousSubwordStart",
       "ctrl-alt-h": "editor::DeleteToPreviousSubwordStart",
@@ -1139,8 +1151,6 @@
       "tab": "git_panel::FocusEditor",
       "shift-tab": "git_panel::FocusEditor",
       "escape": "git_panel::ToggleFocus",
-      "ctrl-enter": "git::Commit",
-      "ctrl-shift-enter": "git::Amend",
       "alt-enter": "menu::SecondaryConfirm",
       "delete": [
         "git::RestoreFile",
@@ -1202,7 +1212,9 @@
       "ctrl-g backspace": "git::RestoreTrackedFiles",
       "ctrl-g shift-backspace": "git::TrashUntrackedFiles",
       "ctrl-space": "git::StageAll",
-      "ctrl-shift-space": "git::UnstageAll"
+      "ctrl-shift-space": "git::UnstageAll",
+      "ctrl-enter": "git::Commit",
+      "ctrl-shift-enter": "git::Amend"
     }
   },
   {
@@ -1221,7 +1233,7 @@
     }
   },
   {
-    "context": "GitPanel > Editor",
+    "context": "CommitEditor > Editor",
     "bindings": {
       "escape": "git_panel::FocusChanges",
       "tab": "git_panel::FocusChanges",
@@ -1267,9 +1279,14 @@
     "context": "CollabPanel && not_editing",
     "bindings": {
       "ctrl-backspace": "collab_panel::Remove",
-      "space": "menu::Confirm",
-      "ctrl-up": "collab_panel::MoveChannelUp",
-      "ctrl-down": "collab_panel::MoveChannelDown"
+      "space": "menu::Confirm"
+    }
+  },
+  {
+    "context": "CollabPanel",
+    "bindings": {
+      "alt-up": "collab_panel::MoveChannelUp",
+      "alt-down": "collab_panel::MoveChannelDown"
     }
   },
   {
