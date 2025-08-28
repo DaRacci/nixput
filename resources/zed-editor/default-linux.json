@@ -189,7 +189,7 @@
       "find": "buffer_search::Deploy",
       "ctrl-f": "buffer_search::Deploy",
       "ctrl-h": "buffer_search::DeployReplace",
-      "ctrl->": "assistant::QuoteSelection",
+      "ctrl->": "agent::QuoteSelection",
       "ctrl-<": "assistant::InsertIntoEditor",
       "ctrl-alt-e": "editor::SelectEnclosingSymbol",
       "ctrl-shift-backspace": "editor::GoToPreviousChange",
@@ -290,8 +290,9 @@
       "ctrl-shift-a": "agent::ToggleContextPicker",
       "ctrl-shift-j": "agent::ToggleNavigationMenu",
       "ctrl-shift-i": "agent::ToggleOptionsMenu",
+      "ctrl-alt-shift-n": "agent::ToggleNewThreadMenu",
       "shift-alt-escape": "agent::ExpandMessageEditor",
-      "ctrl->": "assistant::QuoteSelection",
+      "ctrl->": "agent::QuoteSelection",
       "ctrl-alt-e": "agent::RemoveAllContext",
       "ctrl-shift-e": "project_panel::ToggleFocus",
       "ctrl-shift-enter": "agent::ContinueThread",
@@ -377,13 +378,23 @@
     }
   },
   {
-    "context": "AcpThread > Editor",
+    "context": "AcpThread > Editor && !use_modifier_to_send",
     "use_key_equivalents": true,
     "bindings": {
       "enter": "agent::Chat",
-      "up": "agent::PreviousHistoryMessage",
-      "down": "agent::NextHistoryMessage",
-      "shift-ctrl-r": "agent::OpenAgentDiff"
+      "shift-ctrl-r": "agent::OpenAgentDiff",
+      "ctrl-shift-y": "agent::KeepAll",
+      "ctrl-shift-n": "agent::RejectAll"
+    }
+  },
+  {
+    "context": "AcpThread > Editor && use_modifier_to_send",
+    "use_key_equivalents": true,
+    "bindings": {
+      "ctrl-enter": "agent::Chat",
+      "shift-ctrl-r": "agent::OpenAgentDiff",
+      "ctrl-shift-y": "agent::KeepAll",
+      "ctrl-shift-n": "agent::RejectAll"
     }
   },
   {
@@ -1125,6 +1136,7 @@
       ],
       "alt-ctrl-r": "project_panel::RevealInFileManager",
       "ctrl-shift-enter": "project_panel::OpenWithSystem",
+      "alt-d": "project_panel::CompareMarkedFiles",
       "shift-find": "project_panel::NewSearchInDirectory",
       "ctrl-alt-shift-f": "project_panel::NewSearchInDirectory",
       "shift-down": "menu::SelectNext",
@@ -1457,6 +1469,13 @@
     }
   },
   {
+    "context": "OnboardingAiConfigurationModal",
+    "use_key_equivalents": true,
+    "bindings": {
+      "escape": "menu::Cancel"
+    }
+  },
+  {
     "context": "Diagnostics",
     "use_key_equivalents": true,
     "bindings": {
@@ -1532,7 +1551,9 @@
       "ctrl-1": "onboarding::ActivateBasicsPage",
       "ctrl-2": "onboarding::ActivateEditingPage",
       "ctrl-3": "onboarding::ActivateAISetupPage",
-      "ctrl-escape": "onboarding::Finish"
+      "ctrl-escape": "onboarding::Finish",
+      "alt-tab": "onboarding::SignIn",
+      "alt-shift-a": "onboarding::OpenAccount"
     }
   }
 ]
