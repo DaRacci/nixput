@@ -202,7 +202,7 @@
       "find": "buffer_search::Deploy",
       "ctrl-f": "buffer_search::Deploy",
       "ctrl-h": "buffer_search::DeployReplace",
-      "ctrl->": "agent::QuoteSelection",
+      "ctrl->": "agent::AddSelectionToThread",
       "ctrl-<": "assistant::InsertIntoEditor",
       "ctrl-alt-e": "editor::SelectEnclosingSymbol",
       "ctrl-shift-backspace": "editor::GoToPreviousChange",
@@ -306,7 +306,7 @@
       "ctrl-shift-i": "agent::ToggleOptionsMenu",
       "ctrl-alt-shift-n": "agent::ToggleNewThreadMenu",
       "shift-alt-escape": "agent::ExpandMessageEditor",
-      "ctrl->": "agent::QuoteSelection",
+      "ctrl->": "agent::AddSelectionToThread",
       "ctrl-alt-e": "agent::RemoveAllContext",
       "ctrl-shift-e": "project_panel::ToggleFocus",
       "ctrl-shift-enter": "agent::ContinueThread",
@@ -429,7 +429,7 @@
     }
   },
   {
-    "context": "PromptLibrary",
+    "context": "RulesLibrary",
     "bindings": {
       "new": "rules_library::NewRule",
       "ctrl-n": "rules_library::NewRule",
@@ -837,7 +837,7 @@
       "ctrl-alt-b": "workspace::ToggleRightDock",
       "ctrl-b": "workspace::ToggleLeftDock",
       "ctrl-j": "workspace::ToggleBottomDock",
-      "ctrl-alt-y": "workspace::CloseAllDocks",
+      "ctrl-alt-y": "workspace::ToggleAllDocks",
       "ctrl-alt-0": "workspace::ResetActiveDockSize",
       "ctrl-alt--": [
         "workspace::DecreaseActiveDockSize",
@@ -1680,6 +1680,13 @@
       "enter": "editor::Newline",
       "ctrl-enter up": "dev::Zeta2RatePredictionPositive",
       "ctrl-enter down": "dev::Zeta2RatePredictionNegative"
+    }
+  },
+  {
+    "context": "Zeta2Context > Editor",
+    "bindings": {
+      "alt-left": "dev::Zeta2ContextGoBack",
+      "alt-right": "dev::Zeta2ContextGoForward"
     }
   }
 ]
