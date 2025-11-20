@@ -10,7 +10,7 @@ jobs:
   flake-checker:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: DeterminateSystems/flake-checker-action@main
 
   flake-checks:
@@ -26,7 +26,7 @@ jobs:
     name: Run Flake Check on ${{ matrix.system }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
