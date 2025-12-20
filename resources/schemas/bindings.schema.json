@@ -29,6 +29,7 @@
             "agent::OpenHistory",
             "agent::OpenRulesLibrary",
             "agent::OpenSettings",
+            "agent::PasteRaw",
             "agent::Reject",
             "agent::RejectAll",
             "agent::RejectOnce",
