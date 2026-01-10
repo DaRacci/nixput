@@ -34,7 +34,8 @@
       "ctrl-shift-w": "workspace::CloseWindow",
       "shift-escape": "workspace::ToggleZoom",
       "open": "workspace::Open",
-      "ctrl-o": "workspace::Open",
+      "ctrl-o": "workspace::OpenFiles",
+      "ctrl-k ctrl-o": "workspace::Open",
       "ctrl-=": [
         "zed::IncreaseBufferFontSize",
         {
@@ -72,7 +73,8 @@
       "f11": "zed::ToggleFullScreen",
       "ctrl-alt-z": "edit_prediction::RatePredictions",
       "ctrl-alt-shift-i": "edit_prediction::ToggleMenu",
-      "ctrl-alt-l": "lsp_tool::ToggleMenu"
+      "ctrl-alt-l": "lsp_tool::ToggleMenu",
+      "ctrl-alt-shift-s": "workspace::ToggleWorktreeSecurity"
     }
   },
   {
@@ -91,7 +93,6 @@
       "delete": "editor::Delete",
       "tab": "editor::Tab",
       "shift-tab": "editor::Backtab",
-      "ctrl-k": "editor::CutToEndOfLine",
       "ctrl-k ctrl-q": "editor::Rewrap",
       "ctrl-k q": "editor::Rewrap",
       "ctrl-backspace": [
@@ -667,6 +668,12 @@
           "advance_downwards": false
         }
       ],
+      "ctrl-k ctrl-c": [
+        "editor::ToggleComments",
+        {
+          "advance_downwards": false
+        }
+      ],
       "f8": [
         "editor::GoToDiagnostic",
         {
@@ -1002,7 +1009,8 @@
       "alt-tab": "editor::AcceptEditPrediction",
       "alt-l": "editor::AcceptEditPrediction",
       "tab": "editor::AcceptEditPrediction",
-      "alt-right": "editor::AcceptPartialEditPrediction"
+      "alt-right": "editor::AcceptNextWordEditPrediction",
+      "alt-down": "editor::AcceptNextLineEditPrediction"
     }
   },
   {
@@ -1010,7 +1018,8 @@
     "bindings": {
       "alt-tab": "editor::AcceptEditPrediction",
       "alt-l": "editor::AcceptEditPrediction",
-      "alt-right": "editor::AcceptPartialEditPrediction"
+      "alt-right": "editor::AcceptNextWordEditPrediction",
+      "alt-down": "editor::AcceptNextLineEditPrediction"
     }
   },
   {
@@ -1548,8 +1557,12 @@
   {
     "context": "MarkdownPreview",
     "bindings": {
-      "pageup": "markdown::MovePageUp",
-      "pagedown": "markdown::MovePageDown"
+      "pageup": "markdown::ScrollPageUp",
+      "pagedown": "markdown::ScrollPageDown",
+      "up": "markdown::ScrollUp",
+      "down": "markdown::ScrollDown",
+      "alt-up": "markdown::ScrollUpByItem",
+      "alt-down": "markdown::ScrollDownByItem"
     }
   },
   {
@@ -1652,6 +1665,26 @@
         {
           "persist": false
         }
+      ],
+      "ctrl-1": [
+        "welcome::OpenRecentProject",
+        0
+      ],
+      "ctrl-2": [
+        "welcome::OpenRecentProject",
+        1
+      ],
+      "ctrl-3": [
+        "welcome::OpenRecentProject",
+        2
+      ],
+      "ctrl-4": [
+        "welcome::OpenRecentProject",
+        3
+      ],
+      "ctrl-5": [
+        "welcome::OpenRecentProject",
+        4
       ]
     }
   },
