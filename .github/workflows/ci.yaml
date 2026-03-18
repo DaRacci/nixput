@@ -20,7 +20,7 @@ jobs:
         include:
           - system: ubuntu-latest # x86_64-linux
           - system: ubuntu-24.04-arm # aarch64-linux
-          - system: macos-13 # x86_64-darwin
+          - system: macos-latest-large # x86_64-darwin
           - system: macos-latest # x86_64-darwin
     runs-on: ${{ matrix.system }}
     name: Run Flake Check on ${{ matrix.system }}
