@@ -1032,7 +1032,7 @@
   {
     "context": "Workspace && debugger_running",
     "bindings": {
-      "f5": "zed::NoAction"
+      "f5": null
     }
   },
   {
@@ -1992,6 +1992,20 @@
     "use_key_equivalents": true,
     "bindings": {
       "ctrl-shift-backspace": "worktree_picker::DeleteWorktree"
+    }
+  },
+  {
+    "context": "GitGraph",
+    "bindings": {
+      "tab": "git_graph::FocusNextTabStop",
+      "shift-tab": "git_graph::FocusPreviousTabStop"
+    }
+  },
+  {
+    "context": "GitGraphSearchBar > Editor",
+    "bindings": {
+      "tab": "git_graph::FocusNextTabStop",
+      "shift-tab": "git_graph::FocusPreviousTabStop"
     }
   }
 ]
