@@ -288,23 +288,9 @@
     "bindings": {
       "ctrl-n": "agent::NewThread",
       "ctrl-alt-c": "agent::OpenSettings",
-      "ctrl-alt-p": "agent::ManageProfiles",
-      "ctrl-alt-l": "agent::OpenRulesLibrary",
-      "ctrl-i": "agent::ToggleProfileSelector",
-      "shift-tab": "agent::CycleModeSelector",
-      "ctrl-alt-/": "agent::ToggleModelSelector",
-      "alt-tab": "agent::CycleFavoriteModels",
-      "alt-l": "agent::CycleFavoriteModels",
       "shift-alt-i": "agent::ToggleOptionsMenu",
       "ctrl-alt-shift-n": "agent::ToggleNewThreadMenu",
-      "shift-alt-escape": "agent::ExpandMessageEditor",
-      "ctrl->": "agent::AddSelectionToThread",
       "ctrl-shift-e": "project_panel::ToggleFocus",
-      "ctrl-shift-enter": "agent::ContinueThread",
-      "shift-alt-q": "agent::AllowAlways",
-      "shift-alt-a": "agent::AllowOnce",
-      "ctrl-alt-a": "agent::OpenPermissionDropdown",
-      "shift-alt-x": "agent::RejectOnce",
       "ctrl-tab": "agents_sidebar::ToggleThreadSwitcher",
       "ctrl-shift-tab": [
         "agents_sidebar::ToggleThreadSwitcher",
@@ -323,14 +309,6 @@
     }
   },
   {
-    "context": "AgentPanel && acp_thread",
-    "use_key_equivalents": true,
-    "bindings": {
-      "ctrl-n": "agent::NewExternalAgentThread",
-      "ctrl-alt-t": "agent::NewThread"
-    }
-  },
-  {
     "context": "AgentFeedbackMessageEditor > Editor",
     "bindings": {
       "escape": "menu::Cancel",
@@ -346,8 +324,23 @@
   },
   {
     "context": "AcpThread",
+    "use_key_equivalents": true,
     "bindings": {
+      "ctrl-n": "agent::NewThread",
       "ctrl--": "pane::GoBack",
+      "ctrl-alt-p": "agent::ManageProfiles",
+      "ctrl-alt-l": "agent::OpenRulesLibrary",
+      "ctrl-i": "agent::ToggleProfileSelector",
+      "shift-tab": "agent::CycleModeSelector",
+      "ctrl-alt-/": "agent::ToggleModelSelector",
+      "alt-tab": "agent::CycleFavoriteModels",
+      "alt-l": "agent::CycleFavoriteModels",
+      "shift-alt-escape": "agent::ExpandMessageEditor",
+      "ctrl->": "agent::AddSelectionToThread",
+      "shift-alt-q": "agent::AllowAlways",
+      "shift-alt-a": "agent::AllowOnce",
+      "ctrl-alt-a": "agent::OpenPermissionDropdown",
+      "shift-alt-x": "agent::RejectOnce",
       "pageup": "agent::ScrollOutputPageUp",
       "pagedown": "agent::ScrollOutputPageDown",
       "home": "agent::ScrollOutputToTop",
@@ -1626,6 +1619,12 @@
     }
   },
   {
+    "context": "AgentPanel > Terminal",
+    "bindings": {
+      "ctrl-n": "agent::NewThread"
+    }
+  },
+  {
     "context": "ZedPredictModal",
     "bindings": {
       "escape": "menu::Cancel"
@@ -1959,6 +1958,7 @@
     "use_key_equivalents": true,
     "bindings": {
       "ctrl-shift-backspace": "branch_picker::DeleteBranch",
+      "ctrl-alt-shift-backspace": "branch_picker::ForceDeleteBranch",
       "ctrl-shift-i": "branch_picker::FilterRemotes"
     }
   },
@@ -1993,7 +1993,8 @@
     "context": "WorktreePicker || (WorktreePicker > Picker > Editor)",
     "use_key_equivalents": true,
     "bindings": {
-      "ctrl-shift-backspace": "worktree_picker::DeleteWorktree"
+      "ctrl-shift-backspace": "worktree_picker::DeleteWorktree",
+      "ctrl-alt-shift-backspace": "worktree_picker::ForceDeleteWorktree"
     }
   },
   {
