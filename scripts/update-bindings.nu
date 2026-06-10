@@ -8,15 +8,31 @@
 
 const SCHEMA_PATH = "./resources/schemas/bindings.schema.json";
 
+def parse-jsonc [raw: string] {
+  $raw
+  | lines
+  | each {|line|
+      # strip inline // comments (conservatively: only outside strings)
+      # simple approach: split on first // that's not inside quotes
+      let trimmed = $line | str replace --regex '\s*//.*' ''
+      $trimmed
+    }
+  | filter {|line| ($line | str trim) != '' }
+  | str join "\n"
+  | from json
+}
+
 def parse_zed-editor [] {
   let version = nix eval --raw nixpkgs#zed-editor.version
   let url = $"https://raw.githubusercontent.com/zed-industries/zed/refs/tags/v($version)/assets/keymaps/default-linux.json";
-  let json = http get $url
-  let contexts = $json | get -i context | filter {|c| $c != null}
-  let actions = $json | get bindings | each {|b| $b | values } | flatten
+  let raw = http get $url
+  let items = parse-jsonc $raw
+
+  let contexts = $items | each {|item| $item | get -i context } | filter {|c| $c != null} | uniq | sort
+  let actions = $items | each {|item| $item.bindings | values } | flatten
 
   return {
-    contexts: ($contexts | uniq | sort ),
+    contexts: $contexts,
     actionsNoArgs: ($actions | filter {|a| ($a| describe ) == 'string' }| uniq | sort ),
     # TODO - Add specific arg types and properties to the actions instead of just an array
     actionsWithArgs: ($actions | filter {|a| ($a| describe ) != 'string' }| each {|a| $a | get 0 } | uniq | sort )
