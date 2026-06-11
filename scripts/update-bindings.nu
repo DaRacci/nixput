@@ -25,7 +25,7 @@ def parse-jsonc [raw: string] {
 def parse_zed-editor [] {
   let version = nix eval --raw nixpkgs#zed-editor.version
   let url = $"https://raw.githubusercontent.com/zed-industries/zed/refs/tags/v($version)/assets/keymaps/default-linux.json";
-  let raw = http get $url
+  let raw = http get --raw $url
   let items = parse-jsonc $raw
 
   let contexts = $items | each {|item| $item | get -i context } | filter {|c| $c != null} | uniq | sort
