@@ -29,7 +29,7 @@ def parse_zed-editor [] {
   let items = parse-jsonc $raw
 
   let contexts = $items | each {|item| $item | get -i context } | filter {|c| $c != null} | uniq | sort
-  let actions = $items | each {|item| $item.bindings | values } | flatten
+  let actions = $items | each {|item| $item.bindings | values } | flatten | filter {|a| $a != null}
 
   return {
     contexts: $contexts,
