@@ -36,6 +36,7 @@
             "agent::RejectOnce",
             "agent::RemoveFirstQueuedMessage",
             "agent::RemoveSelectedThread",
+            "agent::RenameSelectedThread",
             "agent::ScrollOutputLineDown",
             "agent::ScrollOutputLineUp",
             "agent::ScrollOutputPageDown",
