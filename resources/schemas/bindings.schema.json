@@ -461,6 +461,7 @@
             "terminal::ShowCharacterPalette",
             "terminal::ToggleViMode",
             "terminal_panel::Toggle",
+            "text_finder::Toggle",
             "theme::ToggleMode",
             "theme_selector::Toggle",
             "toast::RunAction",
@@ -516,6 +517,7 @@
             "zed::OpenKeymapFile",
             "zed::OpenSettings",
             "zed::OpenSettingsFile",
+            "zed::OpenWorktreeSetupTasks",
             "zed::Quit",
             "zed::ToggleFullScreen"
           ],
