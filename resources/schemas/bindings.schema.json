@@ -662,7 +662,7 @@
         "GitGraph",
         "GitGraphSearchBar > Editor",
         "GitPanel",
-        "GitPanel && ChangesList && !GitBranchSelector",
+        "GitPanel && ChangesList && !GitBranchSelector && !GitRepositorySelector",
         "GitPanel && CommitEditor",
         "GitPicker",
         "ImageViewer",
