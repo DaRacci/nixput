@@ -343,6 +343,7 @@
             "new_process_modal::ActivateTaskTab",
             "notebook::AddCodeBlock",
             "notebook::AddMarkdownBlock",
+            "notebook::DeleteCell",
             "notebook::EnterCommandMode",
             "notebook::EnterEditMode",
             "notebook::InterruptKernel",
