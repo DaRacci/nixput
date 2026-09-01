@@ -483,6 +483,7 @@
             "workspace::CloseAllItemsAndPanes",
             "workspace::CloseInactiveTabsAndPanes",
             "workspace::CloseWindow",
+            "workspace::CopyPath",
             "workspace::CopyRelativePath",
             "workspace::FocusNextPart",
             "workspace::FocusPreviousPart",
