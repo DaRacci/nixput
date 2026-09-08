@@ -1141,7 +1141,9 @@
   {
     "bindings": {
       "ctrl-alt-shift-f": "workspace::FollowNextCollaborator",
-      "ctrl-alt-i": "dev::ToggleInspector"
+      "ctrl-alt-i": "dev::ToggleInspector",
+      "ctrl-alt-shift-p": "dev::ToggleFpsOverlay",
+      "ctrl-alt-shift-o": "dev::ResetFrameOverlayStats"
     }
   },
   {
