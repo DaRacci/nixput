@@ -106,6 +106,8 @@
             "debugger::UnsetBreakpoint",
             "dev::EditPredictionContextGoBack",
             "dev::EditPredictionContextGoForward",
+            "dev::ResetFrameOverlayStats",
+            "dev::ToggleFpsOverlay",
             "dev::ToggleInspector",
             "diagnostics::Deploy",
             "diagnostics::ToggleDiagnosticsRefresh",
