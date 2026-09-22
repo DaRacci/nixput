@@ -63,7 +63,6 @@
       "ctrl-alt-,": "zed::OpenSettingsFile",
       "ctrl-q": "zed::Quit",
       "f4": "debugger::Start",
-      "f11": "zed::ToggleFullScreen",
       "ctrl-alt-z": "edit_prediction::RatePredictions",
       "ctrl-alt-shift-i": "edit_prediction::ToggleMenu",
       "ctrl-alt-l": "lsp_tool::ToggleMenu",
@@ -757,6 +756,7 @@
       "shift-f12": "editor::GoToImplementation",
       "alt-ctrl-f12": "editor::GoToTypeDefinitionSplit",
       "alt-shift-f12": "editor::FindAllReferences",
+      "ctrl-k ctrl-h": "call_hierarchy::ShowIncomingCalls",
       "ctrl-m": "editor::MoveToEnclosingBracket",
       "ctrl-|": "editor::MoveToEnclosingBracket",
       "ctrl-{": "editor::Fold",
@@ -803,6 +803,14 @@
     }
   },
   {
+    "context": "Editor && (extension == csv || extension == tsv || extension == ssv || extension == psv)",
+    "use_key_equivalents": true,
+    "bindings": {
+      "ctrl-k v": "tabular_data::OpenPreviewToTheSide",
+      "ctrl-shift-v": "tabular_data::OpenPreview"
+    }
+  },
+  {
     "context": "Editor && mode == full",
     "bindings": {
       "ctrl-shift-o": "outline::Toggle",
@@ -816,6 +824,7 @@
       "shift-f6": "workspace::FocusPreviousPart",
       "ctrl-f6": "workspace::FocusNextPart",
       "alt-open": "projects::OpenRecent",
+      "f11": "zed::ToggleFullScreen",
       "alt-ctrl-o": "projects::OpenRecent",
       "ctrl-r": "projects::OpenRecent",
       "alt-shift-open": [
@@ -1033,7 +1042,12 @@
   {
     "context": "Workspace && debugger_stopped",
     "bindings": {
-      "f5": "debugger::Continue"
+      "f5": "debugger::Continue",
+      "f7": "debugger::StepOver",
+      "f10": "debugger::StepOver",
+      "f11": "debugger::StepInto",
+      "ctrl-f11": "debugger::StepInto",
+      "shift-f11": "debugger::StepOut"
     }
   },
   {
@@ -1296,6 +1310,8 @@
       "right": "git_panel::ExpandSelectedEntry",
       "up": "git_panel::PreviousEntry",
       "down": "git_panel::NextEntry",
+      "shift-up": "menu::SelectPrevious",
+      "shift-down": "menu::SelectNext",
       "enter": "menu::Confirm",
       "alt-y": "git::StageFile",
       "alt-shift-y": "git::UnstageFile",
@@ -1308,7 +1324,7 @@
       "alt-ctrl-shift-c": "workspace::CopyRelativePath",
       "tab": "git_panel::FocusEditor",
       "shift-tab": "git_panel::FocusEditor",
-      "escape": "git_panel::ToggleFocus",
+      "escape": "menu::Cancel",
       "alt-enter": "menu::SecondaryConfirm",
       "delete": [
         "git::RestoreFile",
@@ -1412,10 +1428,7 @@
     "bindings": {
       "f6": "debugger::Pause",
       "shift-f5": "debugger::Stop",
-      "ctrl-shift-f5": "debugger::RerunSession",
-      "f7": "debugger::StepOver",
-      "ctrl-f11": "debugger::StepInto",
-      "shift-f11": "debugger::StepOut"
+      "ctrl-shift-f5": "debugger::RerunSession"
     }
   },
   {
@@ -1474,6 +1487,14 @@
     "context": "ChannelModal",
     "bindings": {
       "tab": "channel_modal::ToggleMode"
+    }
+  },
+  {
+    "context": "CallHierarchyPicker > Picker > Editor",
+    "bindings": {
+      "ctrl-k ctrl-h": "call_hierarchy::ToggleDirection",
+      "ctrl-k right": "menu::SelectChild",
+      "ctrl-k left": "menu::SelectParent"
     }
   },
   {
