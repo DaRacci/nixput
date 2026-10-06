@@ -711,13 +711,15 @@
       "ctrl-/": [
         "editor::ToggleComments",
         {
-          "advance_downwards": false
+          "advance_downwards": false,
+          "comment_empty_lines": true
         }
       ],
       "ctrl-k ctrl-c": [
         "editor::ToggleComments",
         {
-          "advance_downwards": false
+          "advance_downwards": false,
+          "comment_empty_lines": true
         }
       ],
       "ctrl-k ctrl-/": "editor::ToggleBlockComments",
@@ -1283,6 +1285,8 @@
       "alt-d": "project_panel::CompareMarkedFiles",
       "shift-find": "project_panel::NewSearchInDirectory",
       "ctrl-alt-shift-f": "project_panel::NewSearchInDirectory",
+      "menu": "project_panel::OpenContextMenu",
+      "shift-f10": "project_panel::OpenContextMenu",
       "shift-down": "menu::SelectNext",
       "shift-up": "menu::SelectPrevious",
       "escape": "menu::Cancel"
@@ -1515,6 +1519,12 @@
           "secondary": false
         }
       ]
+    }
+  },
+  {
+    "context": "LspCommandSelector > Picker > Editor",
+    "bindings": {
+      "tab": "lsp_command_selector::ToggleArgumentsFocus"
     }
   },
   {
