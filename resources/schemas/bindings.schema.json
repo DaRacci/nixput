@@ -668,6 +668,7 @@
         "Editor && showing_code_actions",
         "Editor && showing_completions",
         "Editor && showing_signature_help && !showing_completions",
+        "Elicitation || (Elicitation > Editor)",
         "FileFinder || (FileFinder > Picker > Editor)",
         "GitBranchSelector || (GitBranchSelector > Picker > Editor)",
         "GitCommit > Editor && mode == auto_height",
