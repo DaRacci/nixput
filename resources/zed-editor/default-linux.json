@@ -1174,6 +1174,27 @@
     }
   },
   {
+    "context": "Editor && DebuggerHover",
+    "bindings": {
+      "escape": "editor::Cancel",
+      "left": "editor::DebuggerHoverCollapseSelected",
+      "down": "editor::DebuggerHoverSelectNext",
+      "up": "editor::DebuggerHoverSelectPrevious",
+      "right": "editor::DebuggerHoverExpandSelected"
+    }
+  },
+  {
+    "context": "DebuggerHoverMenu",
+    "bindings": {
+      "enter": "menu::Confirm",
+      "escape": "menu::Cancel",
+      "up": "menu::SelectPrevious",
+      "down": "menu::SelectNext",
+      "home": "menu::SelectFirst",
+      "end": "menu::SelectLast"
+    }
+  },
+  {
     "bindings": {
       "ctrl-alt-shift-f": "workspace::FollowNextCollaborator",
       "ctrl-alt-i": "dev::ToggleInspector",
